@@ -14,10 +14,11 @@ class TipoProdutoController extends Controller
     {
         // Vai no banco de dados e busca todos os dados da tabela Tipo_Produtos
         // Esses dados são salvos na variável $tipoProdutos
+        // $tipoProdutos = TipoProduto::all();
         $tipoProdutos = DB::select('SELECT * FROM Tipo_Produtos');
         // Mando carregar a view index de TipoProduto com a variável $tipoProdutos
         // No comando with o primeiro argumento é o nome da variável que será criada
-        // dentro da view. O segundo é os dados que ela irá conter
+        // dentro da view. O segundo é os dados que ela irá conter.
         return view("tipoproduto.index")->with("tipoProdutos", $tipoProdutos);
     }
 
