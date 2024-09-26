@@ -29,3 +29,6 @@ Route::get("/tipoproduto/create", "App\Http\Controllers\TipoProdutoController@cr
 // store
 Route::post("/tipoproduto", "App\Http\Controllers\TipoProdutoController@store");
 
+
+Route::get("/produto", "App\Http\Controllers\ProdutoController@index");
+
