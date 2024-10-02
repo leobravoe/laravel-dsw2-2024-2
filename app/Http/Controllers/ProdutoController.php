@@ -22,7 +22,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        return view("produto.create");
     }
 
     /**

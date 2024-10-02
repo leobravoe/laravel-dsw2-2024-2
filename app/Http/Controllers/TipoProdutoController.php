@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\TipoProduto;
 
 class TipoProdutoController extends Controller
 {
@@ -27,7 +28,7 @@ class TipoProdutoController extends Controller
      */
     public function create()
     {
-        return "Método create chamado";
+        return view("tipoproduto.create");
     }
 
     /**
@@ -35,7 +36,11 @@ class TipoProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // use App\Models\TipoProduto;
+        $tipoProduto = new TipoProduto();
+        $tipoProduto->descricao = $request->descricao;
+        $tipoProduto->save();
+        return redirect("/tipoproduto");
     }
 
     /**

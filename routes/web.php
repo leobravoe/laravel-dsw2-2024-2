@@ -22,13 +22,12 @@ Route::get('/', function () {
 });
 
 // Rotas de TipoProduto
-// index
 Route::get("/tipoproduto", "App\Http\Controllers\TipoProdutoController@index");
-// create
 Route::get("/tipoproduto/create", "App\Http\Controllers\TipoProdutoController@create");
-// store
 Route::post("/tipoproduto", "App\Http\Controllers\TipoProdutoController@store");
 
-
+// Rotas de Produto
 Route::get("/produto", "App\Http\Controllers\ProdutoController@index");
+Route::get("/produto/create", "App\Http\Controllers\ProdutoController@create");
+Route::post("/produto", "App\Http\Controllers\ProdutoController@store");
 
