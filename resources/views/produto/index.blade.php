@@ -26,10 +26,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($tipoProdutos as $tipoProduto)
+                @foreach ($produtos as $produto)
                     <tr>
-                        <th scope="row">{{ $tipoProduto->id }}</th>
-                        <td>{{ $tipoProduto->descricao }}</td>
+                        <th scope="row">{{ $produto->id }}</th>
+                        <td>{{ $produto->nome }}</td>
                         <td>
                             <a href="#" class="btn btn-primary">Mostrar</a>
                             <a href="#" class="btn btn-secondary">Editar</a>
