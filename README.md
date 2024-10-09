@@ -4,8 +4,10 @@ cd laravel-dsw2-2024-2
 
 composer update
 
-composer artisan reset-database
+copy .env.example .env
 
-composer artisan key:generate
+php artisan key:generate
 
 Configurar o arquivo .env com o nome da base de dados "restaurantedb"
+
+php artisan reset-database
