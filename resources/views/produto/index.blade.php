@@ -21,7 +21,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Descrição</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Tipo</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -30,6 +32,8 @@
                     <tr>
                         <th scope="row">{{ $produto->id }}</th>
                         <td>{{ $produto->nome }}</td>
+                        <td>{{ $produto->preco }}</td>
+                        <td>{{ $produto->Tipo_Produtos_id }}</td>
                         <td>
                             <a href="#" class="btn btn-primary">Mostrar</a>
                             <a href="#" class="btn btn-secondary">Editar</a>
