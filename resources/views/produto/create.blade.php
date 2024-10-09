@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,43 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 </head>
-<body>
-    <div class="container">
 
+<body data-bs-theme="dark">
+    <div class="container">
+        {{-- Mandar Post para o Método store --}}
+        <form method="post" action="/produto"> 
+            @csrf
+            <div class="my-3">
+                <label for="id-input-id" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id-input-id" aria-describedby="id-help-id" value="#" disabled>
+                <div id="id-help-id" class="form-text">Não é necessário informar o ID para cadastrar um novo dado.</div>
+            </div>
+            <div class="my-3">
+                <label for="id-input-nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="id-input-nome" placeholder="Digite o nome" name="nome" required>
+            </div>
+            <div class="my-3">
+                <label for="id-input-preco" class="form-label">Preço</label>
+                <input type="text" class="form-control" id="id-input-preco" placeholder="Digite o preço" name="preco" required>
+            </div>
+            <div class="my-3">
+                <label for="id-input-Tipo_Produtos_id" class="form-label">Tipo</label>
+                <input type="text" class="form-control" id="id-input-Tipo_Produtos_id" placeholder="Digite o tipo" name="Tipo_Produtos_id" required>
+            </div>
+            <div class="my-3">
+                <label for="id-input-ingredientes" class="form-label">ingredientes</label>
+                <input type="text" class="form-control" id="id-input-ingredientes" placeholder="Digite os ingredientes" name="ingredientes" required>
+            </div>
+            <div class="my-3">
+                <label for="id-input-urlImage" class="form-label">urlImage</label>
+                <input type="text" class="form-control" id="id-input-urlImage" placeholder="Digite o urlImage" name="urlImage" required>
+            </div>
+            <div class="my-3">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="/produto" class="btn btn-primary">Voltar</a>
+            </div>
+        </form>
     </div>
 </body>
+
 </html>

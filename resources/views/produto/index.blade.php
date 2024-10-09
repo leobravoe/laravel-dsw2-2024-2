@@ -15,7 +15,7 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-        <a href="#" class="btn btn-primary">Criar Produto</a>
+        <a href="/produto/create" class="btn btn-primary">Criar Produto</a>
         <a href="#" class="btn btn-primary">Voltar</a>
         <table class="table table-hover">
             <thead>

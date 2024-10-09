@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Produto;
 
 class ProdutoController extends Controller
 {
@@ -30,7 +31,15 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produto = new Produto();
+        // MODEL(Tabela) = REQUEST(Dados nomeados do formulário)
+        $produto->nome = $request->nome;
+        $produto->preco = $request->preco;
+        $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
+        $produto->ingredientes = $request->ingredientes;
+        $produto->urlImage = $request->urlImage;
+        $produto->save();
+        return redirect("/produto");
     }
 
     /**
