@@ -15,7 +15,7 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-        <a href="/tipoproduto/create" class="btn btn-primary">Criar TipoProduto</a>
+        <a href="{{ route('tipoproduto.create') }}" class="btn btn-primary">Criar TipoProduto</a>
         <a href="#" class="btn btn-primary">Voltar</a>
         <table class="table table-hover">
             <thead>

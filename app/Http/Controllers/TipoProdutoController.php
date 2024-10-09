@@ -40,7 +40,7 @@ class TipoProdutoController extends Controller
         $tipoProduto = new TipoProduto();
         $tipoProduto->descricao = $request->descricao;
         $tipoProduto->save();
-        return redirect("/tipoproduto");
+        return redirect()->route("tipoproduto.index");
     }
 
     /**

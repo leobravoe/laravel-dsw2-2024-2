@@ -39,7 +39,7 @@ class ProdutoController extends Controller
         $produto->ingredientes = $request->ingredientes;
         $produto->urlImage = $request->urlImage;
         $produto->save();
-        return redirect("/produto");
+        return redirect()->route("produto.index");
     }
 
     /**
