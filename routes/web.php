@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use \App\Models\TipoProduto;
-use \App\Models\Produto;
-use Illuminate\Support\Facades\DB;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

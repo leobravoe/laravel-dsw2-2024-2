@@ -11,3 +11,9 @@ php artisan key:generate
 Configurar o arquivo .env com o nome da base de dados "restaurantedb"
 
 php artisan reset-database
+
+Com o projeto configurado, para atualizar:
+
+git reset --hard
+
+git pull

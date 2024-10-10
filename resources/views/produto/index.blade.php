@@ -33,7 +33,7 @@
                         <th scope="row">{{ $produto->id }}</th>
                         <td>{{ $produto->nome }}</td>
                         <td>{{ $produto->preco }}</td>
-                        <td>{{ $produto->Tipo_Produtos_id }}</td>
+                        <td>{{ $produto->descricao }}</td>
                         <td>
                             <a href="#" class="btn btn-primary">Mostrar</a>
                             <a href="#" class="btn btn-secondary">Editar</a>

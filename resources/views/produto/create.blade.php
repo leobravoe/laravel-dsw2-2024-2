@@ -35,9 +35,14 @@
                     name="preco" required>
             </div>
             <div class="my-3">
-                <label for="id-input-Tipo_Produtos_id" class="form-label">Tipo</label>
-                <input type="text" class="form-control" id="id-input-Tipo_Produtos_id" placeholder="Digite o tipo"
-                    name="Tipo_Produtos_id" required>
+                <label for="id-select-Tipo_Produtos_id" class="form-label">Tipo</label>
+                {{-- <input type="text" class="form-control" id="id-input-Tipo_Produtos_id" placeholder="Digite o tipo"
+                    name="Tipo_Produtos_id" required> --}}
+                <select id="id-select-Tipo_Produtos_id" class="form-select" name="Tipo_Produtos_id">
+                    @foreach ($tipoProdutos as $tipoProduto)
+                        <option value="{{ $tipoProduto->id }}">{{ $tipoProduto->descricao }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="my-3">
                 <label for="id-input-ingredientes" class="form-label">ingredientes</label>
