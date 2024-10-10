@@ -16,7 +16,7 @@
 <body data-bs-theme="dark">
     <div class="container">
         {{-- Mandar Post para o Método store --}}
-        <form method="post" action="{{ route('produto.store') }}">
+        <form method="post" action="{{ route('produto.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="my-3">
                 <label for="id-input-id" class="form-label">ID</label>
@@ -50,9 +50,10 @@
                     placeholder="Digite os ingredientes" name="ingredientes" required>
             </div>
             <div class="my-3">
-                <label for="id-input-urlImage" class="form-label">urlImage</label>
-                <input type="text" class="form-control" id="id-input-urlImage" placeholder="Digite o urlImage"
-                    name="urlImage" required>
+                <label for="id-input-imagem" class="form-label">Imagem</label>
+                {{-- <input type="text" class="form-control" id="id-input-urlImage" placeholder="Digite o urlImage"
+                    name="urlImage" required> --}}
+                <input type="file" class="form-control" id="id-input-imagem" name="imagem">
             </div>
             <div class="my-3">
                 <button type="submit" class="btn btn-primary">Enviar</button>
