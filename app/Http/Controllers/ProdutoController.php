@@ -68,7 +68,23 @@ class ProdutoController extends Controller
      */
     public function show(string $id)
     {
-        dd($id);
+        //dd($id);
+        // DB select sempre retorna um array
+        // Essa consulta em específico sempre 
+        // retorna um array com um objeto ou um array vazio
+        $produtos = DB::select("SELECT Produtos.*,
+                                       Tipo_Produtos.descricao
+                                FROM Produtos 
+                                JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id
+                                WHERE Produtos.id = ?", [$id]);
+        //dd($produtos);
+        //dd(count($produtos));
+        if( count($produtos) == 1 ){
+            return view("produto.show")->with("produtos", $produtos);
+        }
+        else{
+            return "O produto de id = $id não foi encontrado";
+        }
     }
 
     /**
