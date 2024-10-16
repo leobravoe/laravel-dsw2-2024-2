@@ -79,10 +79,12 @@ class ProdutoController extends Controller
                                 WHERE Produtos.id = ?", [$id]);
         //dd($produtos);
         //dd(count($produtos));
-        if( count($produtos) == 1 ){
-            return view("produto.show")->with("produtos", $produtos);
-        }
-        else{
+        if (count($produtos) == 1) {
+            // Manda carregar a view produto.show criando nela
+            // a variável $produto com o conteúdo do primeiro índice do array $produtos
+            // Mando um objeto, pois o acesso aos dados não precisa de foreach
+            return view("produto.show")->with("produto", $produtos[0]);
+        } else {
             return "O produto de id = $id não foi encontrado";
         }
     }
