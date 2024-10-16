@@ -44,7 +44,6 @@ class ProdutoController extends Controller
         $produto->preco = $request->preco;
         $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
         $produto->ingredientes = $request->ingredientes;
-        // $produto->urlImage = $request->urlImage;
 
         // Verifica se uma imagem foi enviada e a armazena
         if ($request->hasFile('imagem')) {
@@ -69,7 +68,7 @@ class ProdutoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        dd($id);
     }
 
     /**
