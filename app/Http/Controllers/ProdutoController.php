@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Produto;
+use App\Models\TipoProduto;
 
 class ProdutoController extends Controller
 {
@@ -94,7 +95,17 @@ class ProdutoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Utiliza o model para fazer uma busca em uma chave primária da tabela
+        // O objeto retornado é do tipo Model
+        $produto = Produto::find($id);
+        $tipoProdutos = TipoProduto::all();
+
+        // Faço um consulta com DB::select e pego o primeiro elemento do array
+        //$produto = DB::select("SELECT * FROM Produtos WHERE id = 1")[0];
+        //dd($produto);
+
+        // Mando carregar a view edit de Produto com a variável $produto dentro dela
+        return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
     }
 
     /**
