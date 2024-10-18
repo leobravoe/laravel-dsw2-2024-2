@@ -48,19 +48,17 @@ class ProdutoController extends Controller
             $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
             $produto->ingredientes = $request->ingredientes;
             $produto->urlImage = "/img-default/default.png"; // url de imagem padrão
-            // Verifica se uma imagem foi enviada e atualiza o $produto->urlImage
+            $produto->save();
+            // Verifica se uma imagem foi enviada e a armazena
             if ($request->hasFile('imagem')) {
                 $imagem = $request->file('imagem'); // pega a imagem enviada e coloca na variável $imagem
                 // Usa explode para dividir a string de microtime em duas partes
                 [$segundos, $microsegundos] = explode(".", microtime(true)); // retorna uma string no formato "segundos.microsegundos"
                 // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
                 $nomeImagem = $produto->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
-                $produto->urlImage = "/img/produto/$nomeImagem"; // Prepara o caminho para salvar no banco de dados
-            }
-            // Salva o produto e a imagem
-            $produto->save();
-            if (isset($nomeImagem)) {
                 $caminhoImagem = public_path("/img/produto"); // caminho da pasta public
+                $produto->urlImage = "/img/produto/$nomeImagem"; // Prepara o caminho para salvar no banco de dados
+                $produto->update();
                 $imagem->move($caminhoImagem, $nomeImagem); // Move a imagem para a pasta
             }
             DB::commit(); // Confirma a transação
