@@ -107,7 +107,10 @@ class ProdutoController extends Controller
 
         // Faço um consulta com DB::select e pego o primeiro elemento do array
         //$produto = DB::select("SELECT * FROM Produtos WHERE id = 1")[0];
+        //$tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
+        
         //dd($produto);
+        //dd($tipoProdutos);
 
         // Mando carregar a view edit de Produto com a variável $produto dentro dela
         return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
