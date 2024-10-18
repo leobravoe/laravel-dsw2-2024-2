@@ -39,29 +39,37 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $produto = new Produto();
-        // MODEL(Tabela) = REQUEST(Dados nomeados do formulário)
-        $produto->nome = $request->nome;
-        $produto->preco = $request->preco;
-        $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
-        $produto->ingredientes = $request->ingredientes;
-
-        // Verifica se uma imagem foi enviada e a armazena
-        if ($request->hasFile('imagem')) {
-            $imagem = $request->file('imagem'); // pega a imagem enviada e coloca na variável $imagem
-            // Usa explode para dividir a string de microtime em duas partes
-            list($segundos, $microsegundos) = explode(".", microtime(true)); // retorna uma string no formato "segundos.microsegundos" desde a era Unix (1 de janeiro de 1970)
-            // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
-            $nomeImagem = $produto->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
-            $caminhoImagem = public_path("/img/produto"); // caminho da pasta public
-            $imagem->move($caminhoImagem, $nomeImagem); // coloca a imagem na pasta
-            $produto->urlImage = "/img/produto/$nomeImagem"; // Salva o caminho da imagem no banco de dados
-        } else {
-            $produto->urlImage = "/img/default.png"; // url de imagem padrão
+        DB::beginTransaction(); // Inicia a transação
+        try {
+            $produto = new Produto();
+            // MODEL(Tabela) = REQUEST(Dados nomeados do formulário)
+            $produto->nome = $request->nome;
+            $produto->preco = $request->preco;
+            $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
+            $produto->ingredientes = $request->ingredientes;
+            // Verifica se uma imagem foi enviada e seta o $produto->urlImage
+            if ($request->hasFile('imagem')) {
+                $imagem = $request->file('imagem'); // pega a imagem enviada e coloca na variável $imagem
+                // Usa explode para dividir a string de microtime em duas partes
+                [$segundos, $microsegundos] = explode(".", microtime(true)); // retorna uma string no formato "segundos.microsegundos"
+                // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
+                $nomeImagem = $produto->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
+                $produto->urlImage = "/img/produto/$nomeImagem"; // Prepara o caminho para salvar no banco de dados
+            } else {
+                $produto->urlImage = "/img-default/default.png"; // url de imagem padrão
+            }
+            // Salva o produto e a imagem
+            $produto->save();
+            if (isset($nomeImagem)) {
+                $caminhoImagem = public_path("/img/produto"); // caminho da pasta public
+                $imagem->move($caminhoImagem, $nomeImagem); // Move a imagem para a pasta
+            }
+            DB::commit(); // Confirma a transação
+            return redirect()->route("produto.index");
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Desfaz a transação em caso de erro
+            return redirect()->route("produto.index");
         }
-
-        $produto->save();
-        return redirect()->route("produto.index");
     }
 
     /**
