@@ -47,7 +47,8 @@ class ProdutoController extends Controller
             $produto->preco = $request->preco;
             $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
             $produto->ingredientes = $request->ingredientes;
-            // Verifica se uma imagem foi enviada e seta o $produto->urlImage
+            $produto->urlImage = "/img-default/default.png"; // url de imagem padrão
+            // Verifica se uma imagem foi enviada e atualiza o $produto->urlImage
             if ($request->hasFile('imagem')) {
                 $imagem = $request->file('imagem'); // pega a imagem enviada e coloca na variável $imagem
                 // Usa explode para dividir a string de microtime em duas partes
@@ -55,8 +56,6 @@ class ProdutoController extends Controller
                 // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
                 $nomeImagem = $produto->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
                 $produto->urlImage = "/img/produto/$nomeImagem"; // Prepara o caminho para salvar no banco de dados
-            } else {
-                $produto->urlImage = "/img-default/default.png"; // url de imagem padrão
             }
             // Salva o produto e a imagem
             $produto->save();
