@@ -15,29 +15,26 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-        {{-- Mandar Post para o Método store --}}
         <form method="post" action="{{ route('produto.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="my-3">
                 <label for="id-input-id" class="form-label">ID</label>
-                <input type="text" class="form-control" id="id-input-id" aria-describedby="id-help-id" value="{{$produto->id}}"
-                    disabled>
+                <input type="text" class="form-control" id="id-input-id" aria-describedby="id-help-id"
+                    value="{{ $produto->id }}" disabled>
                 <div id="id-help-id" class="form-text">Não é necessário informar o ID para cadastrar um novo dado.</div>
             </div>
             <div class="my-3">
                 <label for="id-input-nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="id-input-nome" placeholder="Digite o nome" name="nome"
-                value="{{$produto->nome}}" required>
+                    value="{{ $produto->nome }}" required>
             </div>
             <div class="my-3">
                 <label for="id-input-preco" class="form-label">Preço</label>
                 <input type="text" class="form-control" id="id-input-preco" placeholder="Digite o preço"
-                    name="preco" value="{{$produto->preco}}" required>
+                    name="preco" value="{{ $produto->preco }}" required>
             </div>
             <div class="my-3">
                 <label for="id-select-Tipo_Produtos_id" class="form-label">Tipo</label>
-                {{-- <input type="text" class="form-control" id="id-input-Tipo_Produtos_id" placeholder="Digite o tipo"
-                    name="Tipo_Produtos_id" required> --}}
                 <select id="id-select-Tipo_Produtos_id" class="form-select" name="Tipo_Produtos_id">
                     @foreach ($tipoProdutos as $tipoProduto)
                         <option value="{{ $tipoProduto->id }}">{{ $tipoProduto->descricao }}</option>
@@ -47,7 +44,8 @@
             <div class="my-3">
                 <label for="id-input-ingredientes" class="form-label">ingredientes</label>
                 <input type="text" class="form-control" id="id-input-ingredientes"
-                    placeholder="Digite os ingredientes" name="ingredientes" value="{{$produto->ingredientes}}" required>
+                    placeholder="Digite os ingredientes" name="ingredientes" value="{{ $produto->ingredientes }}"
+                    required>
             </div>
             <div class="my-3">
                 <label for="id-input-imagem" class="form-label">Imagem</label>

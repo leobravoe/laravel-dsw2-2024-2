@@ -15,7 +15,6 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-        {{-- Mandar Post para o Método store --}}
         <form method="post" action="{{ route('produto.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="my-3">
@@ -36,8 +35,6 @@
             </div>
             <div class="my-3">
                 <label for="id-select-Tipo_Produtos_id" class="form-label">Tipo</label>
-                {{-- <input type="text" class="form-control" id="id-input-Tipo_Produtos_id" placeholder="Digite o tipo"
-                    name="Tipo_Produtos_id" required> --}}
                 <select id="id-select-Tipo_Produtos_id" class="form-select" name="Tipo_Produtos_id">
                     @foreach ($tipoProdutos as $tipoProduto)
                         <option value="{{ $tipoProduto->id }}">{{ $tipoProduto->descricao }}</option>
@@ -51,8 +48,6 @@
             </div>
             <div class="my-3">
                 <label for="id-input-imagem" class="form-label">Imagem</label>
-                {{-- <input type="text" class="form-control" id="id-input-urlImage" placeholder="Digite o urlImage"
-                    name="urlImage" required> --}}
                 <input type="file" class="form-control" id="id-input-imagem" name="imagem">
             </div>
             <div class="my-3">
