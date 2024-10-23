@@ -29,3 +29,4 @@ Route::get("/produto/create", "App\Http\Controllers\ProdutoController@create")->
 Route::post("/produto", "App\Http\Controllers\ProdutoController@store")->name("produto.store");
 Route::get("/produto/{id}", "App\Http\Controllers\ProdutoController@show")->name("produto.show");
 Route::get("/produto/{id}/edit", "App\Http\Controllers\ProdutoController@edit")->name("produto.edit");
+Route::put("/produto/{id}", "App\Http\Controllers\ProdutoController@update")->name("produto.update");

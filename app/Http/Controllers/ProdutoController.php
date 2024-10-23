@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Produto;
 use App\Models\TipoProduto;
+use Illuminate\Support\Facades\File;
 
 class ProdutoController extends Controller
 {
@@ -103,16 +104,14 @@ class ProdutoController extends Controller
         // Utiliza o model para fazer uma busca em uma chave primária da tabela
         // O objeto retornado é do tipo Model
         $produto = Produto::find($id);
-        
         // Faço um consulta com DB::select e pego o primeiro elemento do array
-        //$produto = DB::select("SELECT * FROM Produtos WHERE id = 1")[0];
-        //$tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
-        
-        //dd($produto);
-        //dd($tipoProdutos);
-        
+        // $produto = DB::select("SELECT * FROM Produtos WHERE id = 2")[0];
+        // dd($produto);
+
         if (isset($produto)) {
             $tipoProdutos = TipoProduto::all();
+            //$tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
+
             // Mando carregar a view edit de Produto com a variável $produto dentro dela
             return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
         }
@@ -124,7 +123,42 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        DB::beginTransaction(); // Inicia a transação
+        try {
+            $produto = Produto::find($id);
+            if (isset($produto)) {
+                $produto->nome = $request->nome;
+                $produto->preco = $request->preco;
+                $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
+                $produto->ingredientes = $request->ingredientes;
+                $produto->update();
+                // Verifica se uma imagem foi enviada e a armazena
+                if ($request->hasFile('imagem')) {
+                    $diretorioImagemAntiga = dirname($produto->urlImage);
+                    // Remove a imagem anterior, se existir e não estiver no diretório de imagens padrão
+                    if ($diretorioImagemAntiga != "/img-default") {
+                        $imagemAntiga = public_path($produto->urlImage);
+                        if (File::exists($imagemAntiga)) {
+                            File::delete($imagemAntiga); // Remove a imagem antiga
+                        }
+                    }
+                    $imagem = $request->file('imagem'); // pega a imagem enviada e coloca na variável $imagem
+                    // Usa explode para dividir a string de microtime em duas partes
+                    [$segundos, $microsegundos] = explode(".", microtime(true)); // retorna uma string no formato "segundos.microsegundos"
+                    // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
+                    $nomeImagem = $produto->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
+                    $caminhoImagem = public_path("/img/produto"); // caminho da pasta public
+                    $produto->urlImage = "/img/produto/$nomeImagem"; // Prepara o caminho para salvar no banco de dados
+                    $produto->update();
+                    $imagem->move($caminhoImagem, $nomeImagem); // Move a imagem para a pasta
+                }
+            }
+            DB::commit(); // Confirma a transação
+            return redirect()->route("produto.index");
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Desfaz a transação em caso de erro
+            return redirect()->route("produto.index");
+        }
     }
 
     /**
