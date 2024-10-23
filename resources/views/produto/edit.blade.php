@@ -17,7 +17,7 @@
     <div class="container">
         <form method="post" action="{{ route('produto.update', $produto->id) }}" enctype="multipart/form-data">
             @csrf
-            @method('put');
+            @method('put')
             <div class="my-3">
                 <label for="id-input-id" class="form-label">ID</label>
                 <input type="text" class="form-control" id="id-input-id" aria-describedby="id-help-id"

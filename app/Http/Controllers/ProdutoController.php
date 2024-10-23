@@ -157,6 +157,7 @@ class ProdutoController extends Controller
             return redirect()->route("produto.index");
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
+            //dd($th);
             return redirect()->route("produto.index");
         }
     }
