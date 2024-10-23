@@ -37,7 +37,14 @@
                 <label for="id-select-Tipo_Produtos_id" class="form-label">Tipo</label>
                 <select id="id-select-Tipo_Produtos_id" class="form-select" name="Tipo_Produtos_id">
                     @foreach ($tipoProdutos as $tipoProduto)
-                        <option value="{{ $tipoProduto->id }}">{{ $tipoProduto->descricao }}</option>
+                        {{-- Quando eu for imprimir um option, verifico se: --}}
+                        {{-- $produto->Tipo_Produtos_id que estou editando é igual ao elemento no select --}}
+                        {{-- Então ele deve ser marcado como selecionado --}}
+                        @if ($produto->Tipo_Produtos_id == $tipoProduto->id)
+                            <option selected value="{{ $tipoProduto->id }}">{{ $tipoProduto->descricao }}</option>
+                        @else
+                            <option value="{{ $tipoProduto->id }}">{{ $tipoProduto->descricao }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>

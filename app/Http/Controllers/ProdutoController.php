@@ -103,21 +103,20 @@ class ProdutoController extends Controller
         // Utiliza o model para fazer uma busca em uma chave primária da tabela
         // O objeto retornado é do tipo Model
         $produto = Produto::find($id);
-        $tipoProdutos = TipoProduto::all();
-
-        $produtoWhere = Produto::where("preco", 8)->first();
-
-        dd($produtoWhere);
-
+        
         // Faço um consulta com DB::select e pego o primeiro elemento do array
         //$produto = DB::select("SELECT * FROM Produtos WHERE id = 1")[0];
         //$tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
         
         //dd($produto);
         //dd($tipoProdutos);
-
-        // Mando carregar a view edit de Produto com a variável $produto dentro dela
-        return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
+        
+        if (isset($produto)) {
+            $tipoProdutos = TipoProduto::all();
+            // Mando carregar a view edit de Produto com a variável $produto dentro dela
+            return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
+        }
+        return "O produto $id não foi encontrado";
     }
 
     /**
