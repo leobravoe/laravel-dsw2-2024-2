@@ -105,6 +105,10 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
         $tipoProdutos = TipoProduto::all();
 
+        $produtoWhere = Produto::where("preco", 8)->first();
+
+        dd($produtoWhere);
+
         // Faço um consulta com DB::select e pego o primeiro elemento do array
         //$produto = DB::select("SELECT * FROM Produtos WHERE id = 1")[0];
         //$tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
