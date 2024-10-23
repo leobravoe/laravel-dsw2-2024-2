@@ -36,11 +36,18 @@ class TipoProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        // use App\Models\TipoProduto;
-        $tipoProduto = new TipoProduto();
-        $tipoProduto->descricao = $request->descricao;
-        $tipoProduto->save();
-        return redirect()->route("tipoproduto.index");
+        DB::beginTransaction(); // Inicia a transação
+        try {
+            $tipoProduto = new TipoProduto();
+            $tipoProduto->descricao = $request->descricao;
+            $tipoProduto->save();
+            DB::commit(); // Confirma a transação
+            return redirect()->route("tipoproduto.index");
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Desfaz a transação em caso de erro
+            dd($th);
+            return redirect()->route("tipoproduto.index");
+        }
     }
 
     /**
@@ -56,7 +63,7 @@ class TipoProdutoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -64,7 +71,20 @@ class TipoProdutoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        DB::beginTransaction(); // Inicia a transação
+        try {
+            $tipoProduto = TipoProduto::find($id);
+            if (isset($tipoProduto)) {
+                $tipoProduto->descricao = $request->descricao;
+                $tipoProduto->update();
+            }
+            DB::commit(); // Confirma a transação
+            return redirect()->route("tipoproduto.index");
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Desfaz a transação em caso de erro
+            dd($th);
+            return redirect()->route("tipoproduto.index");
+        }
     }
 
     /**
@@ -72,6 +92,6 @@ class TipoProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        dd($id);
     }
 }
