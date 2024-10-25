@@ -14,7 +14,7 @@
     <div class="container">
         <div class="my-3">
             <label for="id-input-id" class="form-label">ID</label>
-            <input id="id-input-id" type="text" class="form-control" aria-describedby="id-help-id" value="{{ $produto->id }}" disabled>
+            <input id="id-input-id" type="text" class="form-control" value="{{ $produto->id }}" disabled>
         </div>
         <div class="my-3">
             <label for="id-input-nome" class="form-label">Nome</label>
@@ -36,7 +36,7 @@
             <label for="id-input-imagem" class="form-label">Imagem</label>
             <input id="id-input-imagem" type="text" class="form-control" value="{{ $produto->urlImage }}" disabled>
             <div class="text-center">
-                <img src="{{ $produto->urlImage }}">
+                <img class="w-50" src="{{ $produto->urlImage }}">
             </div>
         </div>
         <div class="my-3">

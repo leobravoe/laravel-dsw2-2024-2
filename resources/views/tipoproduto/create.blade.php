@@ -12,7 +12,6 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-        {{-- Mandar Post para o Método store --}}
         <form method="post" action="{{ route('tipoproduto.store') }}">
             @csrf
             <div class="my-3">

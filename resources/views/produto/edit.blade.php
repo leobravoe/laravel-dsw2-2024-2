@@ -18,7 +18,7 @@
             <div class="my-3">
                 <label class="form-label" for="id-input-id">ID</label>
                 <input id="id-input-id" aria-describedby="id-help-id" class="form-control" disabled type="text" value="{{ $produto->id }}">
-                <div id="id-help-id" class="form-text">Não é necessário informar o ID para cadastrar um novo dado.</div>
+                <div id="id-help-id" class="form-text">Não possível alterar o ID de um dado.</div>
             </div>
             <div class="my-3">
                 <label class="form-label" for="id-input-nome">Nome</label>
