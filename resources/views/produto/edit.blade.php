@@ -1,41 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Edit de Produto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 
 <body data-bs-theme="dark">
     <div class="container">
-        <form method="post" action="{{ route('produto.update', $produto->id) }}" enctype="multipart/form-data">
+        <form action="{{ route('produto.update', $produto->id) }}" enctype="multipart/form-data" method="post">
             @csrf
             @method('put')
             <div class="my-3">
-                <label for="id-input-id" class="form-label">ID</label>
-                <input type="text" class="form-control" id="id-input-id" aria-describedby="id-help-id"
-                    value="{{ $produto->id }}" disabled>
+                <label class="form-label" for="id-input-id">ID</label>
+                <input id="id-input-id" aria-describedby="id-help-id" class="form-control" disabled type="text" value="{{ $produto->id }}">
                 <div id="id-help-id" class="form-text">Não é necessário informar o ID para cadastrar um novo dado.</div>
             </div>
             <div class="my-3">
-                <label for="id-input-nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="id-input-nome" placeholder="Digite o nome" name="nome"
-                    value="{{ $produto->nome }}" required>
+                <label class="form-label" for="id-input-nome">Nome</label>
+                <input id="id-input-nome" class="form-control" name="nome" placeholder="Digite o nome" required type="text" value="{{ $produto->nome }}">
             </div>
             <div class="my-3">
-                <label for="id-input-preco" class="form-label">Preço</label>
-                <input type="text" class="form-control" id="id-input-preco" placeholder="Digite o preço"
-                    name="preco" value="{{ $produto->preco }}" required>
+                <label class="form-label" for="id-input-preco">Preço</label>
+                <input id="id-input-preco" class="form-control" name="preco" placeholder="Digite o preço" required type="text" value="{{ $produto->preco }}">
             </div>
             <div class="my-3">
-                <label for="id-select-Tipo_Produtos_id" class="form-label">Tipo</label>
+                <label class="form-label" for="id-select-Tipo_Produtos_id">Tipo</label>
                 <select id="id-select-Tipo_Produtos_id" class="form-select" name="Tipo_Produtos_id">
                     @foreach ($tipoProdutos as $tipoProduto)
                         {{-- Quando eu for imprimir um option, verifico se: --}}
@@ -50,20 +44,16 @@
                 </select>
             </div>
             <div class="my-3">
-                <label for="id-input-ingredientes" class="form-label">ingredientes</label>
-                <input type="text" class="form-control" id="id-input-ingredientes"
-                    placeholder="Digite os ingredientes" name="ingredientes" value="{{ $produto->ingredientes }}"
-                    required>
+                <label class="form-label" for="id-input-ingredientes">ingredientes</label>
+                <input id="id-input-ingredientes" class="form-control" name="ingredientes" placeholder="Digite os ingredientes" required type="text" value="{{ $produto->ingredientes }}">
             </div>
             <div class="my-3">
-                <label for="id-input-imagem" class="form-label">Imagem</label>
-                {{-- <input type="text" class="form-control" id="id-input-urlImage" placeholder="Digite o urlImage"
-                    name="urlImage" required> --}}
-                <input type="file" class="form-control" id="id-input-imagem" name="imagem">
+                <label class="form-label" for="id-input-imagem">Imagem</label>
+                <input id="id-input-imagem" class="form-control" name="imagem" type="file">
             </div>
             <div class="my-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-                <a href="{{ route('produto.index') }}" class="btn btn-primary">Voltar</a>
+                <button class="btn btn-primary" type="submit">Enviar</button>
+                <a class="btn btn-primary" href="{{ route('produto.index') }}">Voltar</a>
             </div>
         </form>
     </div>
