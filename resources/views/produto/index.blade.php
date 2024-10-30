@@ -34,12 +34,31 @@
                         <td>
                             <a href="{{ route('produto.show', $produto->id) }}" class="btn btn-primary">Mostrar</a>
                             <a href="{{ route('produto.edit', $produto->id) }}" class="btn btn-secondary">Editar</a>
-                            <a href="#" class="btn btn-danger">Remover</a>
+                            <a href="#" class="btn btn-danger btnRemover" data-bs-toggle="modal" data-bs-target="#exampleModal">Remover</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="exampleModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 id="exampleModalLabel" class="modal-title fs-5">Remoção de Recurso</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente remover este recurso?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">Confirmar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
