@@ -63,7 +63,11 @@ class TipoProdutoController extends Controller
      */
     public function edit(string $id)
     {
-        dd($id);
+        $tipoProduto = TipoProduto::find($id);
+        if (isset($tipoProduto)) {
+            return view("tipoproduto.edit")->with("tipoProduto", $tipoProduto);
+        }
+        return "O tipo produto $id não foi encontrado";
     }
 
     /**
