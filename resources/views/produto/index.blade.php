@@ -55,7 +55,11 @@
                     Deseja realmente remover este recurso?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Confirmar</button>
+                    <form method="post" action="">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </form>
                 </div>
             </div>
         </div>
