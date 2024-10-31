@@ -34,7 +34,7 @@
                         <td>
                             <a href="{{ route('produto.show', $produto->id) }}" class="btn btn-primary">Mostrar</a>
                             <a href="{{ route('produto.edit', $produto->id) }}" class="btn btn-secondary">Editar</a>
-                            <a href="#" class="btn btn-danger btnRemover" data-bs-toggle="modal" data-bs-target="#exampleModal">Remover</a>
+                            <a value="/produto/{{$produto->id}}" href="#" class="btn btn-danger btnRemover" data-bs-toggle="modal" data-bs-target="#exampleModal">Remover</a>
                         </td>
                     </tr>
                 @endforeach
@@ -60,6 +60,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let arrayBotaoRemover = document.querySelectorAll(".btnRemover");
+        console.log(arrayBotaoRemover);
+        arrayBotaoRemover.forEach(element => {
+            element.addEventListener("click", configuraBotaoRemoverModal);
+        });
+        function configuraBotaoRemoverModal(){
+            alert(this.getAttribute("value"));
+        }
+    </script>
+
 </body>
 
 </html>
