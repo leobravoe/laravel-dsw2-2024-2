@@ -128,13 +128,19 @@ class ProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-        // Se o find encontrar algo, $produto possuirá um objeto (do tipo Model)
-        // Se o find não encontrar nada, $produto possuirá o valor null
-        $produto = Produto::find($id);
-        if(isset($produto)){
-            $produto->delete();
+        DB::beginTransaction(); // Inicia a transação
+        try {
+            $produto = Produto::find($id);
+            if (isset($produto)) {
+                $produto->delete();
+                $produto->removeImage();
+            }
+            DB::commit(); // Confirma a transação
+            return redirect()->route("produto.index");
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Desfaz a transação em caso de erro
+            dd($th);
             return redirect()->route("produto.index");
         }
-        return "Produto $id não encontrado";
     }
 }

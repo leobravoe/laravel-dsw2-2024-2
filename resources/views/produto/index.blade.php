@@ -42,7 +42,6 @@
         </table>
     </div>
 
-
     <!-- Modal -->
     <div id="exampleModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
