@@ -40,6 +40,14 @@
             </div>
         </div>
         <div class="my-3">
+            <label for="id-input-updated_at" class="form-label">Data de atualização</label>
+            <input id="id-input-updated_at" type="text" class="form-control" value="{{ $produto->updated_at }}" disabled>
+        </div>
+        <div class="my-3">
+            <label for="id-input-created_at" class="form-label">Data de criação</label>
+            <input id="id-input-created_at" type="text" class="form-control" value="{{ $produto->created_at }}" disabled>
+        </div>
+        <div class="my-3">
             <a href="{{ route('produto.index') }}" class="btn btn-primary">Voltar</a>
         </div>
     </div>

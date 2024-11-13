@@ -55,7 +55,14 @@ class TipoProdutoController extends Controller
      */
     public function show(string $id)
     {
-        dd($id);
+        $tipoProdutos = DB::select("SELECT *
+                                FROM Tipo_Produtos
+                                WHERE Tipo_Produtos.id = ?", [$id]);
+        if (count($tipoProdutos) == 1) {
+            return view("tipoproduto.show")->with("tipoProduto", $tipoProdutos[0]);
+        } else {
+            return "O tipo produto de id = $id não foi encontrado";
+        }
     }
 
     /**
