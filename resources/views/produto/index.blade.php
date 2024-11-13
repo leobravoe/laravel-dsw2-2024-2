@@ -34,7 +34,7 @@
                         <td>
                             <a href="{{ route('produto.show', $produto->id) }}" class="btn btn-primary">Mostrar</a>
                             <a href="{{ route('produto.edit', $produto->id) }}" class="btn btn-secondary">Editar</a>
-                            <a value="/produto/{{$produto->id}}" href="#" class="btn btn-danger btnRemover" data-bs-toggle="modal" data-bs-target="#exampleModal">Remover</a>
+                            <a value="/produto/{{ $produto->id }}" href="#" class="btn btn-danger btnRemover" data-bs-toggle="modal" data-bs-target="#exampleModal">Remover</a>
                         </td>
                     </tr>
                 @endforeach
@@ -55,7 +55,7 @@
                     Deseja realmente remover este recurso?
                 </div>
                 <div class="modal-footer">
-                    <form method="post" action="">
+                    <form id="id-form-modal-botao-remover" method="post" action="">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger">Confirmar</button>
@@ -67,12 +67,16 @@
 
     <script>
         let arrayBotaoRemover = document.querySelectorAll(".btnRemover");
+        let formModalBotaoRemover = document.querySelector("#id-form-modal-botao-remover");
         console.log(arrayBotaoRemover);
+        console.log(formModalBotaoRemover);
         arrayBotaoRemover.forEach(element => {
             element.addEventListener("click", configuraBotaoRemoverModal);
         });
-        function configuraBotaoRemoverModal(){
-            alert(this.getAttribute("value"));
+
+        function configuraBotaoRemoverModal() {
+            //alert(this.getAttribute("value"));
+            formModalBotaoRemover.setAttribute("action", this.getAttribute("value"));
         }
     </script>
 
