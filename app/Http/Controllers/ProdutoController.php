@@ -128,6 +128,13 @@ class ProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Se o find encontrar algo, $produto possuirá um objeto (do tipo Model)
+        // Se o find não encontrar nada, $produto possuirá o valor null
+        $produto = Produto::find($id);
+        if(isset($produto)){
+            $produto->delete();
+            return redirect()->route("produto.index");
+        }
+        return "Produto $id não encontrado";
     }
 }
