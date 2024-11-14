@@ -12,6 +12,12 @@
 
 <body data-bs-theme="dark">
     <div class="container">
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <a href="{{ route('produto.create') }}" class="btn btn-primary">Criar Produto</a>
         <a href="/" class="btn btn-primary">Voltar</a>
         <table class="table-hover table">
