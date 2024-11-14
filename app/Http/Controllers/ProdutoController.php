@@ -14,11 +14,14 @@ class ProdutoController extends Controller
      */
     public function index()
     {
+        //$message = null;
+        $message = ['Mensagem de aviso', 'warning'];
+
         $produtos = DB::select("SELECT Produtos.*, 
                                        Tipo_Produtos.descricao 
                                 FROM Produtos
                                 JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id");
-        return view("produto.index")->with("produtos", $produtos);
+        return view("produto.index")->with("produtos", $produtos)->with("message", $message);
     }
 
     /**

@@ -12,11 +12,6 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-        {{-- A mensagem que será mandada para a View --}}
-        @php
-            $message = ['Messagem a ser exibida', 'danger'];
-        @endphp
-        
         {{-- Verifica se dentro da View existe a variável $message --}}
         @if (isset($message))
             <div class="alert alert-{{ $message[1] }} alert-dismissible fade show" role="alert">
