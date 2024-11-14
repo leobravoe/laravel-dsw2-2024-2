@@ -12,11 +12,18 @@
 
 <body data-bs-theme="dark">
     <div class="container">
-
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        {{-- A mensagem que será mandada para a View --}}
+        @php
+            $message = ['Messagem a ser exibida', 'danger'];
+        @endphp
+        
+        {{-- Verifica se dentro da View existe a variável $message --}}
+        @if (isset($message))
+            <div class="alert alert-{{ $message[1] }} alert-dismissible fade show" role="alert">
+                <span>{{ $message[0] }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         <a href="{{ route('produto.create') }}" class="btn btn-primary">Criar Produto</a>
         <a href="/" class="btn btn-primary">Voltar</a>
