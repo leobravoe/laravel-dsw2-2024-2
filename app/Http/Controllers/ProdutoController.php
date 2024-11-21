@@ -15,14 +15,17 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        // use Illuminate\Support\Facades\Session;
-        $message = Session::get("message");
-
-        $produtos = DB::select("SELECT Produtos.*, 
+        try {
+            $message = Session::get("message");
+            $produtos = DB::select("SELECT Produtos.*, 
                                        Tipo_Produtos.descricao 
                                 FROM Produtos
                                 JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id");
-        return view("produto.index")->with("produtos", $produtos)->with("message", $message);
+            return view("produto.index")->with("produtos", $produtos)->with("message", $message);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return view("produto.index")->with("produtos", [])->with("message", $message);
+        }
     }
 
     /**
@@ -30,8 +33,13 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        $tipoProdutos = DB::select('SELECT * FROM Tipo_Produtos');
-        return view("produto.create")->with("tipoProdutos", $tipoProdutos);
+        try {
+            $tipoProdutos = DB::select('SELECT * FROM Tipo_Produtos');
+            return view("produto.create")->with("tipoProdutos", $tipoProdutos);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("produto.index")->with("message", $message);
+        }
     }
 
     /**
@@ -50,7 +58,8 @@ class ProdutoController extends Controller
             $produto->save();
             $produto->updateImage($request, "imagem");
             DB::commit(); // Confirma a transação
-            return redirect()->route("produto.index");
+            $message = ["O produto ($produto->nome) foi salvo com sucesso", "success"];
+            return redirect()->route("produto.index")->with("message", $message);
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
             //dd($th);
@@ -130,8 +139,8 @@ class ProdutoController extends Controller
             return redirect()->route("produto.index");
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
-            dd($th);
-            return redirect()->route("produto.index");
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("produto.index")->with("message", $message);
         }
     }
 }

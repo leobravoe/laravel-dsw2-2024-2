@@ -21,9 +21,9 @@ USE `RestauranteDB` ;
 -- -----------------------------------------------------
 -- Table `RestauranteDB`.`Password_Resets`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `RestauranteDB`.`Password_Resets` ;
+DROP TABLE IF EXISTS `RestauranteDB`.`Password_Reset_Tokens`;
 
-CREATE TABLE IF NOT EXISTS `RestauranteDB`.`Password_Resets` (
+CREATE TABLE IF NOT EXISTS `RestauranteDB`.`Password_Reset_Tokens` (
   `token` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `updated_at` TIMESTAMP NULL,
