@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use App\Models\Produto;
 use App\Models\TipoProduto;
 
@@ -14,8 +15,8 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //$message = null;
-        $message = ['Mensagem de aviso', 'warning'];
+        // use Illuminate\Support\Facades\Session;
+        $message = Session::get("message");
 
         $produtos = DB::select("SELECT Produtos.*, 
                                        Tipo_Produtos.descricao 
@@ -52,8 +53,9 @@ class ProdutoController extends Controller
             return redirect()->route("produto.index");
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
-            dd($th);
-            return redirect()->route("produto.index");
+            //dd($th);
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("produto.index")->with("message", $message);
         }
     }
 
