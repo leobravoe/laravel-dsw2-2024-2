@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use App\Models\TipoProduto;
 
 class TipoProdutoController extends Controller
@@ -13,8 +14,14 @@ class TipoProdutoController extends Controller
      */
     public function index()
     {
-        $tipoProdutos = DB::select('SELECT * FROM Tipo_Produtos');
-        return view("tipoproduto.index")->with("tipoProdutos", $tipoProdutos);
+        try {
+            $message = Session::get("message");
+            $tipoProdutos = DB::select('SELECT * FROM Tipo_Produtos');
+            return view("tipoproduto.index")->with("tipoProdutos", $tipoProdutos)->with("message", $message);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return view("tipoproduto.index")->with("tipoProdutos", [])->with("message", $message);
+        }
     }
 
     /**

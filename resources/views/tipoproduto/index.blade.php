@@ -12,6 +12,14 @@
 
 <body data-bs-theme="dark">
     <div class="container">
+        {{-- Verifica se dentro da View existe a variável $message --}}
+        @if (isset($message))
+            <div class="alert alert-{{ $message[1] }} alert-dismissible fade show" role="alert">
+                <span>{{ $message[0] }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <a href="{{ route('tipoproduto.create') }}" class="btn btn-primary">Criar TipoProduto</a>
         <a href="/" class="btn btn-primary">Voltar</a>
         <table class="table-hover table">
