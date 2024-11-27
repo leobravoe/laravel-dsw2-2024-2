@@ -24,7 +24,7 @@ Route::post("/tipoproduto", "App\Http\Controllers\TipoProdutoController@store")-
 Route::get("/tipoproduto/{id}", "App\Http\Controllers\TipoProdutoController@show")->name("tipoproduto.show");
 Route::get("/tipoproduto/{id}/edit", "App\Http\Controllers\TipoProdutoController@edit")->name("tipoproduto.edit");
 Route::put("/tipoproduto/{id}", "App\Http\Controllers\TipoProdutoController@update")->name("tipoproduto.update");
-
+Route::delete("/tipoproduto/{id}", "App\Http\Controllers\TipoProdutoController@destroy")->name("produto.destroy");
 
 // Rotas de Produto
 Route::get("/produto", "App\Http\Controllers\ProdutoController@index")->name("produto.index");
