@@ -29,7 +29,12 @@ class TipoProdutoController extends Controller
      */
     public function create()
     {
-        return view("tipoproduto.create");
+        try {
+            return view("tipoproduto.create");
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
+        }
     }
 
     /**
