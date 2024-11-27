@@ -73,15 +73,20 @@ class ProdutoController extends Controller
      */
     public function show(string $id)
     {
-        $produtos = DB::select("SELECT Produtos.*,
-                                       Tipo_Produtos.descricao
-                                FROM Produtos 
-                                JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id
-                                WHERE Produtos.id = ?", [$id]);
-        if (count($produtos) == 1) {
-            return view("produto.show")->with("produto", $produtos[0]);
-        } else {
-            return "O produto de id = $id não foi encontrado";
+        try {
+            $produtos = DB::select("SELECT Produtos.*,
+                                            Tipo_Produtos.descricao
+                                    FROM Produtos 
+                                    JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id
+                                    WHERE Produtos.id = ?", [$id]);
+            if (count($produtos) == 1) {
+                return view("produto.show")->with("produto", $produtos[0]);
+            }
+            $message = ["Produto $id não encontrado", "warning"];
+            return redirect()->route("produto.index")->with("message", $message);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("produto.index")->with("message", $message);
         }
     }
 
