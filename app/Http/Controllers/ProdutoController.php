@@ -95,12 +95,18 @@ class ProdutoController extends Controller
      */
     public function edit(string $id)
     {
-        $produto = Produto::find($id);
-        if (isset($produto)) {
-            $tipoProdutos = TipoProduto::all();
-            return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
+        try {
+            $produto = Produto::find($id);
+            if (isset($produto)) {
+                $tipoProdutos = TipoProduto::all();
+                return view("produto.edit")->with("produto", $produto)->with("tipoProdutos", $tipoProdutos);
+            }
+            $message = ["Produto $id não encontrado", "warning"];
+            return redirect()->route("produto.index")->with("message", $message);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("produto.index")->with("message", $message);
         }
-        return "O produto $id não foi encontrado";
     }
 
     /**
