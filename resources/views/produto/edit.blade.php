@@ -26,7 +26,7 @@
             </div>
             <div class="my-3">
                 <label class="form-label" for="id-input-preco">Preço</label>
-                <input id="id-input-preco" class="form-control" name="preco" placeholder="Digite o preço" required type="text" value="{{ $produto->preco }}">
+                <input id="id-input-preco" class="form-control" name="preco" placeholder="Digite o preço" required type="number" value="{{ $produto->preco }}">
             </div>
             <div class="my-3">
                 <label class="form-label" for="id-select-Tipo_Produtos_id">Tipo</label>

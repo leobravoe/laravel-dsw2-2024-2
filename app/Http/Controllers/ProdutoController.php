@@ -124,13 +124,17 @@ class ProdutoController extends Controller
                 $produto->ingredientes = $request->ingredientes;
                 $produto->update();
                 $produto->updateImage($request, "imagem");
+                DB::commit(); // Confirma a transação
+                $message = ["Produto $id atualizado com sucesso", "success"];
+                return redirect()->route("produto.index")->with("message", $message);
             }
             DB::commit(); // Confirma a transação
-            return redirect()->route("produto.index");
+            $message = ["Produto $id não encontrado", "warning"];
+            return redirect()->route("produto.index")->with("message", $message);
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
-            dd($th);
-            return redirect()->route("produto.index");
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("produto.index")->with("message", $message);
         }
     }
 
@@ -145,9 +149,13 @@ class ProdutoController extends Controller
             if (isset($produto)) {
                 $produto->delete();
                 $produto->removeImage();
+                DB::commit(); // Confirma a transação
+                $message = ["Produto $id removido com sucesso", "success"];
+                return redirect()->route("produto.index")->with("message", $message);
             }
             DB::commit(); // Confirma a transação
-            return redirect()->route("produto.index");
+            $message = ["Produto $id não encontrado", "warning"];
+            return redirect()->route("produto.index")->with("message", $message);
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
             $message = [$th->getMessage(), "danger"];
