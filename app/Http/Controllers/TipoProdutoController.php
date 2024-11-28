@@ -62,13 +62,18 @@ class TipoProdutoController extends Controller
      */
     public function show(string $id)
     {
-        $tipoProdutos = DB::select("SELECT *
+        try {
+            $tipoProdutos = DB::select("SELECT *
                                 FROM Tipo_Produtos
                                 WHERE Tipo_Produtos.id = ?", [$id]);
-        if (count($tipoProdutos) == 1) {
-            return view("tipoproduto.show")->with("tipoProduto", $tipoProdutos[0]);
-        } else {
-            return "O tipo produto de id = $id não foi encontrado";
+            if (count($tipoProdutos) == 1) {
+                return view("tipoproduto.show")->with("tipoProduto", $tipoProdutos[0]);
+            }
+            $message = ["TipoProduto ($id) não foi encontrado", "warning"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
         }
     }
 
@@ -77,11 +82,17 @@ class TipoProdutoController extends Controller
      */
     public function edit(string $id)
     {
-        $tipoProduto = TipoProduto::find($id);
-        if (isset($tipoProduto)) {
-            return view("tipoproduto.edit")->with("tipoProduto", $tipoProduto);
+        try {
+            $tipoProduto = TipoProduto::find($id);
+            if (isset($tipoProduto)) {
+                return view("tipoproduto.edit")->with("tipoProduto", $tipoProduto);
+            }
+            $message = ["TipoProduto ($id) não foi encontrado", "warning"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
+        } catch (\Throwable $th) {
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
         }
-        return "O tipo produto $id não foi encontrado";
     }
 
     /**
@@ -95,13 +106,17 @@ class TipoProdutoController extends Controller
             if (isset($tipoProduto)) {
                 $tipoProduto->descricao = $request->descricao;
                 $tipoProduto->update();
+                DB::commit(); // Confirma a transação
+                $message = ["TipoProduto ($tipoProduto->descricao) atualizado com sucesso", "success"];
+                return redirect()->route("tipoproduto.index")->with("message", $message);
             }
             DB::commit(); // Confirma a transação
-            return redirect()->route("tipoproduto.index");
+            $message = ["TipoProduto ($id) não foi encontrado", "warning"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
-            dd($th);
-            return redirect()->route("tipoproduto.index");
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
         }
     }
 
@@ -110,6 +125,22 @@ class TipoProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-        dd($id);
+        DB::beginTransaction(); // Inicia a transação
+        try {
+            $tipoProduto = TipoProduto::find($id);
+            if (isset($tipoProduto)) {
+                $tipoProduto->delete();
+                DB::commit(); // Confirma a transação
+                $message = ["TipoProduto ($tipoProduto->descricao) removido com sucesso", "success"];
+                return redirect()->route("tipoproduto.index")->with("message", $message);
+            }
+            DB::commit(); // Confirma a transação
+            $message = ["TipoProduto ($id) não foi encontrado", "warning"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Desfaz a transação em caso de erro
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
+        }
     }
 }
