@@ -48,11 +48,12 @@ class TipoProdutoController extends Controller
             $tipoProduto->descricao = $request->descricao;
             $tipoProduto->save();
             DB::commit(); // Confirma a transação
-            return redirect()->route("tipoproduto.index");
+            $message = ["TipoProduto ($tipoProduto->descricao) salvo com sucesso", "success"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
-            dd($th);
-            return redirect()->route("tipoproduto.index");
+            $message = [$th->getMessage(), "danger"];
+            return redirect()->route("tipoproduto.index")->with("message", $message);
         }
     }
 
