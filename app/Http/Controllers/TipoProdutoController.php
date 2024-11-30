@@ -100,8 +100,8 @@ class TipoProdutoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        DB::beginTransaction(); // Inicia a transação
         try {
+            DB::beginTransaction(); // Inicia a transação
             $tipoProduto = TipoProduto::find($id);
             if (isset($tipoProduto)) {
                 $tipoProduto->descricao = $request->descricao;
@@ -125,8 +125,8 @@ class TipoProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::beginTransaction(); // Inicia a transação
         try {
+            DB::beginTransaction(); // Inicia a transação
             $tipoProduto = TipoProduto::find($id);
             if (isset($tipoProduto)) {
                 $tipoProduto->delete();
