@@ -62,7 +62,6 @@ class ProdutoController extends Controller
             return redirect()->route("produto.index")->with("message", $message);
         } catch (\Throwable $th) {
             DB::rollBack(); // Desfaz a transação em caso de erro
-            //dd($th);
             $message = [$th->getMessage(), "danger"];
             return redirect()->route("produto.index")->with("message", $message);
         }
