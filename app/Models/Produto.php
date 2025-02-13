@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,13 +41,13 @@ class Produto extends Model
                     File::delete($imagemAntiga); // Remove a imagem antiga
                 }
             }
-            $imagem = $request->file($name); // pega a imagem enviada e coloca na variável $imagem
-            // Usa explode para dividir a string de microtime em duas partes
+            $imagem = $request->file($name);                             // pega a imagem enviada e coloca na variável $imagem
+                                                                         // Usa explode para dividir a string de microtime em duas partes
             [$segundos, $microsegundos] = explode(".", microtime(true)); // retorna uma string no formato "segundos.microsegundos"
-            // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
-            $nomeImagem = $this->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
-            $caminhoImagem = public_path("/img/produto"); // caminho da pasta public
-            $this->urlImage = "/img/produto/$nomeImagem"; // Prepara o caminho para salvar no banco de dados
+                                                                         // Gera o nome da imagem no formato: nome-YYYY-MM-DD-SS-MS.ext
+            $nomeImagem     = $this->nome . date("-Y-m-d-") . $segundos . "-" . $microsegundos . "." . $imagem->getClientOriginalExtension();
+            $caminhoImagem  = public_path("/img/produto"); // caminho da pasta public
+            $this->urlImage = "/img/produto/$nomeImagem";  // Prepara o caminho para salvar no banco de dados
             $this->update();
             $imagem->move($caminhoImagem, $nomeImagem); // Move a imagem para a pasta
         }

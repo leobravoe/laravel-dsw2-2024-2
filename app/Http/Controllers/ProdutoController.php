@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
+use App\Models\TipoProduto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use App\Models\Produto;
-use App\Models\TipoProduto;
 
 class ProdutoController extends Controller
 {
@@ -16,9 +15,9 @@ class ProdutoController extends Controller
     public function index()
     {
         try {
-            $message = Session::get("message");
-            $produtos = DB::select("SELECT Produtos.*, 
-                                       Tipo_Produtos.descricao 
+            $message  = Session::get("message");
+            $produtos = DB::select("SELECT Produtos.*,
+                                       Tipo_Produtos.descricao
                                 FROM Produtos
                                 JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id");
             return view("produto.index")->with("produtos", $produtos)->with("message", $message);
@@ -49,12 +48,12 @@ class ProdutoController extends Controller
     {
         try {
             DB::beginTransaction(); // Inicia a transação
-            $produto = new Produto();
-            $produto->nome = $request->nome;
-            $produto->preco = $request->preco;
+            $produto                   = new Produto();
+            $produto->nome             = $request->nome;
+            $produto->preco            = $request->preco;
             $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
-            $produto->ingredientes = $request->ingredientes;
-            $produto->urlImage = "/img-default/default.png"; // url de imagem padrão
+            $produto->ingredientes     = $request->ingredientes;
+            $produto->urlImage         = "/img-default/default.png"; // url de imagem padrão
             $produto->save();
             $produto->updateImage($request, "imagem");
             DB::commit(); // Confirma a transação
@@ -75,7 +74,7 @@ class ProdutoController extends Controller
         try {
             $produtos = DB::select("SELECT Produtos.*,
                                             Tipo_Produtos.descricao
-                                    FROM Produtos 
+                                    FROM Produtos
                                     JOIN Tipo_Produtos ON Produtos.Tipo_Produtos_id = Tipo_Produtos.id
                                     WHERE Produtos.id = ?", [$id]);
             if (count($produtos) == 1) {
@@ -117,10 +116,10 @@ class ProdutoController extends Controller
             DB::beginTransaction(); // Inicia a transação
             $produto = Produto::find($id);
             if (isset($produto)) {
-                $produto->nome = $request->nome;
-                $produto->preco = $request->preco;
+                $produto->nome             = $request->nome;
+                $produto->preco            = $request->preco;
                 $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
-                $produto->ingredientes = $request->ingredientes;
+                $produto->ingredientes     = $request->ingredientes;
                 $produto->update();
                 $produto->updateImage($request, "imagem");
                 DB::commit(); // Confirma a transação

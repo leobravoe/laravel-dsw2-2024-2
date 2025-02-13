@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\TipoProduto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use App\Models\TipoProduto;
 
 class TipoProdutoController extends Controller
 {
@@ -15,7 +14,7 @@ class TipoProdutoController extends Controller
     public function index()
     {
         try {
-            $message = Session::get("message");
+            $message      = Session::get("message");
             $tipoProdutos = DB::select('SELECT * FROM Tipo_Produtos');
             return view("tipoproduto.index")->with("tipoProdutos", $tipoProdutos)->with("message", $message);
         } catch (\Throwable $th) {
@@ -44,7 +43,7 @@ class TipoProdutoController extends Controller
     {
         try {
             DB::beginTransaction(); // Inicia a transação
-            $tipoProduto = new TipoProduto();
+            $tipoProduto            = new TipoProduto();
             $tipoProduto->descricao = $request->descricao;
             $tipoProduto->save();
             DB::commit(); // Confirma a transação
@@ -64,8 +63,8 @@ class TipoProdutoController extends Controller
     {
         try {
             $tipoProdutos = DB::select("SELECT *
-                                FROM Tipo_Produtos
-                                WHERE Tipo_Produtos.id = ?", [$id]);
+                                        FROM Tipo_Produtos
+                                        WHERE Tipo_Produtos.id = ?", [$id]);
             if (count($tipoProdutos) == 1) {
                 return view("tipoproduto.show")->with("tipoProduto", $tipoProdutos[0]);
             }
