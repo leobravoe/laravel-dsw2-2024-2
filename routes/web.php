@@ -43,3 +43,6 @@ Route::get("/endereco/{id}", "App\Http\Controllers\EnderecoController@show")->na
 Route::get("/endereco/{id}/edit", "App\Http\Controllers\EnderecoController@edit")->name("endereco.edit");
 Route::put("/endereco/{id}", "App\Http\Controllers\EnderecoController@update")->name("endereco.update");
 Route::delete("/endereco/{id}", "App\Http\Controllers\EnderecoController@destroy")->name("endereco.destroy");
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
